@@ -69,7 +69,6 @@ int main(int argc, char *argv[])
 				sendBuffer[0] = currFracLevel; // set current level 
 				sendBuffer[1] = fracElems[posOrigin][0]; // set parent element x position
 				sendBuffer[2] = fracElems[posOrigin][1]; // set parent element y position
-				//MPI_Send(sendBuffer, 3, MPI_INT, (((i/2)%(mpisize-1))+1), ((i/2)+1), MPI_COMM_WORLD); 
 				MPI_Send(sendBuffer, 3, MPI_INT, ((i%(mpisize-1))+1), (i+1), MPI_COMM_WORLD); // send to next MPI machine in round robin
 			}
 			printf("to receive %d - %d\n", ((i%(mpisize-1))+1), (i+1));
@@ -97,12 +96,6 @@ int main(int argc, char *argv[])
 		for(int i=maxFracElems; i < mpisize-1; i++)
 		{	
 			//printf("send finish %d\n",(i+1));
-			/*
-			int sendBuffer[3];  // buffer to send: current level
-			sendBuffer[0] = currFracLevel; // current fractal level is above to be treated already
-			sendBuffer[1] = 0; // just to initialize
-			sendBuffer[2] = 0; // just to initialize
-			*/
 			#pragma omp critical
 			{
 				MPI_Send(sendBuffer, 3, MPI_INT, i+1, i+1, MPI_COMM_WORLD);
