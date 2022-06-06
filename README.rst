@@ -1,7 +1,17 @@
-Template to the SMPI Tutorial
-=============================
+1
+(0,1)
 
-This repository contains the files you need to take the `SMPI Tutorial
-<https://simgrid.frama.io/simgrid/Tutorial_MPI_Applications.html>`_: several SimGrid
-platform files, and the source code of the `NAS Parallel Benchmarks
-<https://www.nas.nasa.gov/publications/npb.html>`_.
+2
+   (2,1)
+(0,2) (4,2)
+
+3
+         (6,1)
+    (2,2)    (10,2)
+(0,3) (4,3) (8,3) (12,3)
+
+4
+                          (14,1)
+            (8,2)                        (20,2)
+     (4,3)        (12,3)          (16,3)        (24,3)
+(2,4)  (6,4)  (10,4)  (14,4)  (14,4)  (18,4) (22,4)  (26,4)
