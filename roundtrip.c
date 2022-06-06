@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 		
 		//send buffer to MPI machines not activated yet
 		printf("send finish total: %d\n",(mpisize-1)-maxFracElems); // Segmentation fault. below
-		//#pragma omp parallel for num_threads((mpisize-1)-maxFracElems)
+		#pragma omp parallel for num_threads((mpisize-1)-maxFracElems)
 		//#pragma omp parallel for num_threads(7)
 		for(int i=maxFracElems; i < mpisize-1; i++)
 		{	
@@ -100,8 +100,10 @@ int main(int argc, char *argv[])
 			sendBuffer[1] = 0; // just to initialize
 			sendBuffer[2] = 0; // just to initialize
 			*/
-			//#pragma omp critical
-			MPI_Send(sendBuffer, 3, MPI_INT, i+1, i+1, MPI_COMM_WORLD);
+			#pragma omp critical
+			{
+				MPI_Send(sendBuffer, 3, MPI_INT, i+1, i+1, MPI_COMM_WORLD);
+			}
 		}
 		printf("all sent\n");	
 	}
