@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 		//#pragma omp parallel for num_threads(7)
 		for(int i=maxFracElems; i < mpisize-1; i++)
 		{	
-			printf("send finish %d\n",(i+1));
+			//printf("send finish %d\n",(i+1));
 			/*
 			int sendBuffer[3];  // buffer to send: current level
 			sendBuffer[0] = currFracLevel; // current fractal level is above to be treated already
