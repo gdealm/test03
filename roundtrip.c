@@ -25,7 +25,10 @@ int main(int argc, char *argv[])
   int currFracLevel; // current fractal level being treated
   int maxFracElems = 0; // max number of fractal elements processed so far in parallel
 
-  MPI_Init(&argc, &argv); // initialize MPI
+  //MPI_Init(&argc, &argv); // initialize MPI
+  int provided;
+  MPI_Init_thread(NULL, NULL, MPI_THREAD_MULTIPLE, &provided);
+  printf("Init_thread provided:%d\n",provided);
   MPI_Comm_rank(MPI_COMM_WORLD, &mpirank); // obtain mpirank
   MPI_Comm_size(MPI_COMM_WORLD, &mpisize); // obtain mpisize //GGG if mpisize = 1, it will not work
 
