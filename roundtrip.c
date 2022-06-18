@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	while(currFracLevel <= FRACLEVELS)
 	{
 		int mpthreads = mypow(2,currFracLevel-1); // number of threads for the current level is the number of elements in the level / 2
-		//#pragma omp parallel for num_threads(mpthreads)
+		#pragma omp parallel for num_threads(mpthreads)
 		for(int i=0; i < mpthreads; i++)
 		{
 			int buffer[2]; // create a buffer to receive calculated position
@@ -96,10 +96,13 @@ int main(int argc, char *argv[])
 		for(int i=maxFracElems; i < mpisize-1; i++)
 		{	
 			//printf("send finish %d\n",(i+1));
-			#pragma omp critical
+			MPI_Send(sendBuffer, 3, MPI_INT, i+1, i+1, MPI_COMM_WORLD);
+			//#pragma omp critical
+			/*
 			{
 				MPI_Send(sendBuffer, 3, MPI_INT, i+1, i+1, MPI_COMM_WORLD);
 			}
+			*/
 		}
 		printf("all sent\n");	
 	}
@@ -136,7 +139,7 @@ int main(int argc, char *argv[])
 			}
 			printf("Rank %d is starting %d threads. \n",mpirank,mpthreads);
 			//create threads
-			//#pragma omp parallel for num_threads(mpthreads)
+			#pragma omp parallel for num_threads(mpthreads)
 			for(int i=0; i < mpthreads; i++)
 			{
 				//int mprank = omp_get_thread_num(); // OpenMP rank of this thread
